@@ -1,0 +1,29 @@
+{
+  "name": "Your Full Name",
+  "first_name": "Your First Name",
+  "school": "Full School Name",
+  "school_short": "SCHOOL",
+  "year": "Sophomore",
+  "major": "Your Major",
+  "minor": "",
+  "degree_line": "B.S. Your Major",
+  "sending_email": "you@example.com",
+  "phone": "",
+  "linkedin_url": "https://www.linkedin.com/in/your-handle/",
+  "linkedin_display": "www.linkedin.com/in/your-handle",
+  "portfolio_url": "",
+  "portfolio_display": "",
+  "involvements": [
+    {"org": "Club or Team Name", "role": "Your Role", "clause": "one clause on what the org does", "use_for": "which kinds of targets this is relevant to"}
+  ],
+  "claims_sources": ["path/to/resume.pdf"],
+  "paths": {
+    "crm_dir": "~/EmailCRM",
+    "notes_dir": "",
+    "jobs_repo": "",
+    "extra_path": "",
+    "scrapling_python": ""
+  },
+  "calendar_id": "primary",
+  "schedule_after_noon": true
+}

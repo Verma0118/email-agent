@@ -1,0 +1,10 @@
+# Per-user data: never committed
+profile.json
+personal/
+_old/
+CLAUDE.local.md
+tests/fixtures/
+__pycache__/
+*.pyc
+.DS_Store
+.jobs_repo

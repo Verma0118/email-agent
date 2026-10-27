@@ -1,0 +1,10 @@
+{
+  "name": "Alex Rivera", "first_name": "Alex", "school": "State University", "school_short": "STATE",
+  "year": "Junior", "major": "Mechanical Engineering", "minor": "", "degree_line": "B.S. Mechanical Engineering",
+  "sending_email": "alex@example.com", "phone": "", "linkedin_url": "https://www.linkedin.com/in/alexrivera",
+  "linkedin_display": "www.linkedin.com/in/alexrivera", "portfolio_url": "https://alexrivera.dev",
+  "portfolio_display": "alexrivera.dev",
+  "involvements": [{"org": "Formula Racing", "role": "Powertrain Lead", "clause": "a student team building an FSAE car each year", "use_for": "automotive, EV, propulsion"}],
+  "claims_sources": [], "paths": {"crm_dir": "", "notes_dir": "", "jobs_repo": "", "extra_path": "", "scrapling_python": ""},
+  "calendar_id": "primary", "schedule_after_noon": true
+}
