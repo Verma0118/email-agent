@@ -3,7 +3,7 @@
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent / "fixtures"
-base = (HERE / "pass__coffee_chat__voice_example.txt").read_text()
+base = (HERE / "pass__coffee_chat__voice_example.txt").read_text(encoding="utf-8")
 
 MUTATIONS = {
     "em_dash": ("I saw you moved from motorsport", "I saw you moved — quickly — from motorsport"),
@@ -25,5 +25,5 @@ MUTATIONS = {
 
 for name, (old, new) in MUTATIONS.items():
     assert old in base, name
-    (HERE / f"fail__coffee_chat__{name}.txt").write_text(base.replace(old, new, 1))
+    (HERE / f"fail__coffee_chat__{name}.txt").write_text(base.replace(old, new, 1), encoding="utf-8")
 print(f"wrote {len(MUTATIONS)} failing fixtures")

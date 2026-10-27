@@ -5,17 +5,22 @@ A Claude Code agent for students: cold coffee-chat outreach plus a full job sear
 - **Outreach:** researches a person, drafts the email in a fixed format, checks it against the rules, and saves a Gmail draft only after you approve it. **It never sends anything.** It tracks who you emailed, nudges follow-ups, and preps you for calls.
 - **Jobs:** sets up your job profile from your resume, searches job boards, ranks postings against your profile, tailors your CV and cover letter, tracks applications, and preps you for interviews (built on [ai-job-search](https://github.com/MadsLorentzen/ai-job-search)).
 
-## Install (Mac, no GitHub account needed)
-1. Install [Claude Code](https://claude.com/claude-code) and sign in (Claude Pro or higher).
-2. In Terminal:
-   ```bash
-   curl -fsSL https://raw.githubusercontent.com/Verma0118/email-agent/main/get.sh | bash
-   ```
+## Install (no GitHub account needed)
+1. Install [Claude Code](https://claude.com/claude-code) and sign in (Claude Pro or higher). You also need Python 3 (Windows: get it from [python.org](https://www.python.org/downloads/) and tick "Add to PATH").
+2. Run the installer:
+   - **Mac / Linux** (Terminal):
+     ```bash
+     curl -fsSL https://raw.githubusercontent.com/Verma0118/email-agent/main/get.sh | bash
+     ```
+   - **Windows** (PowerShell):
+     ```powershell
+     irm https://raw.githubusercontent.com/Verma0118/email-agent/main/get.ps1 | iex
+     ```
    It asks whether to set up job search too. Say yes if you want it.
-3. Type `email-agent`. The first run asks for your details (name, school, clubs, resume) and writes `profile.json`, then offers to set up your job profile.
+3. Open a new terminal and type `email-agent`. Or open Claude Code anywhere and say **"email agent"**. The first run asks for your details (name, school, clubs, resume) and writes `profile.json`, then offers to set up your job profile.
 4. Optional but recommended: in claude.ai → Settings → Connectors, connect **Gmail** and **Google Calendar** so drafts land in Gmail and replies are tracked.
 
-Update any time by running the same `curl` line again. Your `profile.json` and `personal/` folder are kept.
+Update any time by running the same install line again. Your `profile.json` and `personal/` folder are kept.
 
 ## Use
 Type `email-agent`, then say what you want:
@@ -29,7 +34,7 @@ Type `email-agent`, then say what you want:
 - `rules/`: grammar, banned words, subject lines, word counts, voice examples. Edit these to change the style.
 - `modes/`: step-by-step procedures for each mode.
 - `tools/crm_tool.py`: contact tracker (`{crm_dir}/contacts.json` + `contacts_archive.json`), with backups.
-- `tools/lint_draft.py`: checks a draft for hard-rule breaks. Run `tests/run_tests.sh` to self-test.
+- `tools/lint_draft.py`: checks a draft for hard-rule breaks. Run `python3 tests/run_tests.py` to self-test.
 - `profile.json` (yours, never committed): who is sending. See `profile.example.json`.
 - `personal/` (optional, yours, never committed): extra email tracks or overrides just for you.
 

@@ -3,7 +3,7 @@ profile.json
 personal/
 _old/
 CLAUDE.local.md
-tests/fixtures/
+tests/fixtures/fail__*
 __pycache__/
 *.pyc
 .DS_Store

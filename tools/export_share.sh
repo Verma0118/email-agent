@@ -54,7 +54,7 @@ if [ $leaks -ne 0 ]; then
   echo "Export stopped: remove the leaks above (or move them into personal/), then rerun."; exit 1
 fi
 
-"$OUT/tests/run_tests.sh" >/dev/null && echo "tests: pass" || { echo "tests failed in the export"; exit 1; }
+python3 "$OUT/tests/run_tests.py" >/dev/null && echo "tests: pass" || { echo "tests failed in the export"; exit 1; }
 rm -f "$OUT"/tests/fixtures/fail__*.txt
 (cd "$DEST" && zip -qr email-agent.zip email-agent)
 echo "clean export: $OUT"

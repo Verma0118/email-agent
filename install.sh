@@ -19,7 +19,7 @@ link() {  # link SRC DEST, refusing to clobber a real file or folder
 }
 [ "$REPO" = "$SKILLS/email-agent" ] || link "$REPO" "$SKILLS/email-agent"
 link "$REPO/agents/email-reviewer.md" "$AGENTS/email-reviewer.md"
-chmod +x "$REPO/tools/"*.py "$REPO/tools/"*.sh "$REPO/tests/"*.sh "$REPO/"*.sh
+chmod +x "$REPO/tools/"*.py "$REPO/tools/"*.sh "$REPO/tests/"*.sh "$REPO/tests/"*.py "$REPO/"*.sh
 
 cat > "$BIN/email-agent" <<'SH'
 #!/bin/bash
@@ -61,5 +61,5 @@ fi
 
 command -v claude >/dev/null || echo "WARNING: Claude Code not found. Install it first: https://claude.com/claude-code"
 case ":$PATH:" in *":$BIN:"*) ;; *) echo "WARNING: add $BIN to your PATH:  echo 'export PATH=\"\$HOME/.local/bin:\$PATH\"' >> ~/.zshrc && source ~/.zshrc";; esac
-"$REPO/tests/run_tests.sh" >/dev/null 2>&1 && echo "self-test: pass" || echo "self-test: FAILED (run tests/run_tests.sh)"
+python3 "$REPO/tests/run_tests.py" >/dev/null 2>&1 && echo "self-test: pass" || echo "self-test: FAILED (run: python3 tests/run_tests.py)"
 echo "done. Type: email-agent"

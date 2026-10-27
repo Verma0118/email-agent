@@ -21,6 +21,8 @@ import re
 import sys
 from pathlib import Path
 
+sys.stdout.reconfigure(encoding="utf-8")  # Windows consoles default to cp1252
+
 SKILL = Path(__file__).resolve().parent.parent
 
 # Shared types. Schema: min/max body words, subject (regex, {name}/{school_short}
@@ -60,7 +62,7 @@ def load_types():
     types = dict(TYPES)
     extra = SKILL / "personal" / "lint.json"
     if extra.exists():
-        types.update(json.loads(extra.read_text()))
+        types.update(json.loads(extra.read_text(encoding="utf-8")))
     return types
 
 
@@ -207,8 +209,8 @@ def main():
     if not prof_path.exists():
         print(f"no profile at {prof_path}; run the email-agent once to create it")
         return 2
-    profile = json.loads(prof_path.read_text())
-    fails, warns, words = lint(Path(a.draft).read_text(), a.type, types[a.type], profile, a.their_words)
+    profile = json.loads(prof_path.read_text(encoding="utf-8"))
+    fails, warns, words = lint(Path(a.draft).read_text(encoding="utf-8"), a.type, types[a.type], profile, a.their_words)
     for f in fails:
         print(f"FAIL  {f}")
     for w in warns:

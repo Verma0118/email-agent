@@ -1,6 +1,6 @@
 ---
 name: email-agent
-description: Student outreach + career agent. Status brief, then routes to one mode - draft (coffee chat email - cold, warm, or after applying), reply, sync (Gmail+Calendar -> CRM, approval-gated), followups/sweep, prep (coffee chat), or jobs (runs ai-job-search: scrape, rank, apply, tailor CV, cover letter, interview prep). Works for whoever is in profile.json. Master CRM = people who replied AND had a call. Never auto-sends.
+description: Student outreach + career agent. Status brief, then routes to one mode - draft (coffee chat email - cold, warm, or after applying), reply, sync (Gmail+Calendar -> CRM, approval-gated), followups/sweep, prep (coffee chat), or jobs (runs ai-job-search: scrape, rank, apply, tailor CV, cover letter, interview prep). Works for whoever is in profile.json. Master CRM = people who replied AND had a call. Never auto-sends. Start it when the user says "email agent" (alone or at the start of a message).
 ---
 
 # Email Agent (router)
@@ -18,13 +18,15 @@ personal/ (optional) one user's extra tracks, CCs, real anchor emails. Wins over
 ```
 Paths in modes and rules are relative to `~/.claude/skills/email-agent/`.
 
+**Platform:** run every `tools/*.py` and `tests/*.py` as `python3 <file> ...` (on Windows, if `python3` is missing, use `py` or `python`). On Windows, Claude Code's shell is Git Bash, so `~` and forward slashes work; a venv's binaries live in `.venv/Scripts/` instead of `.venv/bin/`.
+
 ## Step 0: Profile + brief (every invocation)
 
-1. Read `profile.json`. **Missing?** Run onboarding: say "First run: let's set up your profile." Ask for the fields in `profile.example.json` a few at a time (name, school and short name, year, major/minor, sending email, LinkedIn, portfolio, phone (optional), 1-4 involvements with a one-clause description each, and a resume path for `claims_sources`). Write `profile.json`. Default `crm_dir` is `~/EmailCRM`, `calendar_id` is `primary`. If `.jobs_repo` exists in this folder (written by `install.sh`), put its path in `paths.jobs_repo`. Then ask: **"Want to set up job search now too?"** Yes: follow the First-run check in `modes/jobs.md`.
+1. Read `profile.json`. **Missing?** Run onboarding: say "First run: let's set up your profile." Ask for the fields in `profile.example.json` a few at a time (name, school and short name, year, major/minor, sending email, LinkedIn, portfolio, phone (optional), 1-4 involvements with a one-clause description each, and a resume path for `claims_sources`). Write `profile.json`. Default `crm_dir` is `~/EmailCRM`, `calendar_id` is `primary`. If `.jobs_repo` exists in this folder (written by the installer), put its path in `paths.jobs_repo`. Then ask: **"Want to set up job search now too?"** Yes: follow the First-run check in `modes/jobs.md`.
 2. If `personal/README.md` exists, read it. It adds tracks and overrides for this user.
 3. Run:
    ```bash
-   ~/.claude/skills/email-agent/tools/crm_tool.py brief
+   python3 ~/.claude/skills/email-agent/tools/crm_tool.py brief
    ```
    Show it as a compact block. If it says the sync is stale, offer **sync** first. Then ask what to work on.
 

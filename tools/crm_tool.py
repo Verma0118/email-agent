@@ -33,6 +33,9 @@ import uuid
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+sys.stdout.reconfigure(encoding="utf-8")  # Windows consoles default to cp1252
+
+
 def _crm_root():
     """CRM dir: $EMAIL_AGENT_CRM_DIR, else profile.json paths.crm_dir, else ~/EmailCRM."""
     import os
@@ -41,7 +44,7 @@ def _crm_root():
         return Path(env).expanduser()
     prof = Path(__file__).resolve().parent.parent / "profile.json"
     if prof.exists():
-        d = json.loads(prof.read_text()).get("paths", {}).get("crm_dir")
+        d = json.loads(prof.read_text(encoding="utf-8")).get("paths", {}).get("crm_dir")
         if d:
             return Path(d).expanduser()
     return Path.home() / "EmailCRM"
@@ -67,7 +70,7 @@ def now_iso():
 
 
 def load(path):
-    return json.loads(path.read_text()) if path.exists() else []
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else []
 
 
 def load_all():
@@ -87,18 +90,18 @@ def _backup(path):
 def save(path, data):
     _backup(path)
     tmp = path.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(data, indent=2))
+    tmp.write_text(json.dumps(data, indent=2), encoding="utf-8")
     tmp.replace(path)
 
 
 def load_state():
     if STATE.exists():
-        return json.loads(STATE.read_text())
+        return json.loads(STATE.read_text(encoding="utf-8"))
     return {"last_sync": None, "processed_message_ids": []}
 
 
 def save_state(state):
-    STATE.write_text(json.dumps(state, indent=2))
+    STATE.write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
 def touch(c, action, detail=""):
@@ -198,7 +201,7 @@ def cmd_is_known(a):
 
 def cmd_add(a):
     """FILE: [{name, email, company, role, email_type, gmail_draft_id, hook_used, cc, notes, ...}]"""
-    rows = json.loads(Path(a.file).read_text())
+    rows = json.loads(Path(a.file).read_text(encoding="utf-8"))
     master, archive = load_all()
     added, refused = [], []
     for r in rows:
@@ -250,7 +253,7 @@ def cmd_apply(a):
     """FILE: [{"id": ..., "status"?: ..., "state"?: ..., "signal": ..., "source": "subject (date)",
               "sent_at"?, "gmail_thread_id"?, "last_contact"?, "message_ids": [...]}]
     Moving someone INTO master is `promote`, not `apply`."""
-    changes = json.loads(Path(a.file).read_text())
+    changes = json.loads(Path(a.file).read_text(encoding="utf-8"))
     master, archive = load_all()
     state = load_state()
     written, refused = [], []
@@ -291,7 +294,7 @@ def cmd_apply(a):
 def cmd_promote(a):
     """FILE: [{"id": ..., "relationship": "...", "call_evidence": [{"source","id","date"}], "last_contact": ...}]
     Only for contacts the user approved as replied + confirmed call."""
-    rows = json.loads(Path(a.file).read_text())
+    rows = json.loads(Path(a.file).read_text(encoding="utf-8"))
     master, archive = load_all()
     moved, refused = [], []
     for r in rows:
