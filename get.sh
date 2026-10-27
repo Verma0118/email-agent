@@ -19,4 +19,5 @@ else
   for keep in $KEEP; do [ -e "$TMP/$keep" ] && mv "$TMP/$keep" "$DIR/"; done
   echo "downloaded latest into $DIR"
 fi
-"$DIR/install.sh" "$@" < /dev/tty
+# Under `curl | bash` stdin is the script, so answer prompts from the terminal when there is one.
+if (: < /dev/tty) 2>/dev/null; then "$DIR/install.sh" "$@" < /dev/tty; else "$DIR/install.sh" "$@"; fi

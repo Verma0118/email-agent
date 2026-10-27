@@ -34,7 +34,7 @@ case "${1:-}" in --jobs) want_jobs=y;; --no-jobs) want_jobs=n;; esac
 if [ -z "$want_jobs" ]; then
   if [ -d "$JOBS_DIR/.git" ]; then want_jobs=y
   else
-    read -r -p "Set up the job search pipeline too (find jobs, tailor CV, cover letters)? [y/N] " want_jobs < /dev/tty || want_jobs=n
+    read -r -p "Set up the job search pipeline too (find jobs, tailor CV, cover letters)? [y/N] " want_jobs || want_jobs=n
   fi
 fi
 if [[ "$want_jobs" =~ ^[Yy] ]]; then
